@@ -2,6 +2,7 @@
 #define SIMPLEX_H
 
 #include<vector>
+#include <ostream>
 
 class Simplex
 {
@@ -13,12 +14,16 @@ public:
     int GetEdge(int id) const {return edges_[id]; }
     double GetArea() const {return area_;}
     
+    //friend std::ostream& operator<<(std::ostream& os, const Simplex& s);
+    
 private:
     std::vector<int> pts_;
     std::vector<int> edges_;
     double area_;
     
 };
+
+std::ostream& operator<<(std::ostream& os, const Simplex& s);
 
 
 #endif /* SIMPLEX_H */

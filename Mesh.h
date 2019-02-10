@@ -28,7 +28,11 @@ public:
     const std::vector<int>& GetEdgesFromNode(int id) const {return node2edge_[id];}
     const std::vector<int>& GetSimplicesFromNode(int id) const {return node2simplex_[id];}
     const std::vector<int>& GetSimplicesFromEdge(int id) const {return edge2simplex_[id];}
-    const std::vector<int>& GetInnerNodes() const {return inner_nodes_;}
+    const std::vector<int>& GetInnerNodeIds() const {return inner_nodes_;}
+    std::vector<const Node*> GetpInnerNodes() const;
+    std::vector<const Node*> GetpNodes() const;
+    std::vector<const Edge*> GetpEdges() const;
+    std::vector<const Simplex*> GetpSimplices() const;
     const std::vector<int>& GetEdgesToInnerNodesFromNode(int id) const {return node2edgeinnernode_[id];}
     
     
@@ -42,5 +46,8 @@ private:
     std::vector<int> inner_nodes_;
     std::vector<std::vector<int> > node2edgeinnernode_;
 };
+
+
+//std::ostream& operator<<(std::ostream& os, const Mesh& m);
 
 #endif /*MESH_H*/

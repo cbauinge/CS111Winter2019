@@ -8,6 +8,8 @@ class Meshgenerator
 {
 public:
     Meshgenerator();
+    
+    //Generates a simplex mesh in the unit sqare where n indicates the number of elements on one boundary
     const Mesh* const Generate(int n) const;
     
 private:

@@ -72,18 +72,23 @@ public:
         return 0;
     }
     
-    template<typename T>
-    std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
-    {
-        for (int i = 0; i < v.size(); i++)
-        {
-            os << v[i];
-        << ","
-        }
-    }
+    
     
 private:
 };
+
+template<typename T>
+inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
+{
+    for (int i = 0; i < v.size(); i++)
+    {
+        os << v[i];
+        if (i < v.size() -1)
+            os << ",";
+    }
+    
+    return os;
+}
 
 
 #endif /* WRITER_H */

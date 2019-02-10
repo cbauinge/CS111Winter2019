@@ -33,7 +33,7 @@ int Solver::Solve(const Domain * const domain)
     }
     
     Writer writer;
-    writer.WriteSolution(domain->GetMesh()->GetpInnerNodes(), b, n, "result.csv", Writer::EFormat::CSV);
+    writer.WriteSolution(domain->GetMesh(), b, n, "result", Writer::EFormat::CSV);
     
     
     return info;

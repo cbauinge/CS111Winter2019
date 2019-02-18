@@ -1,15 +1,15 @@
-CXX=g++
-CXXFLAGS = -Wall -g
 LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/
 
+CXX = g++
+CXXFLAGS = -Wall
 
 
-main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o
-	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o $(LIBS)
+
+main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o
+	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o $(LIBS)
 	
-	
-Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o
+Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS)
 	
 Solver.o: Solver.cpp Solver.h Domain.h Writer.h
@@ -32,10 +32,30 @@ Node.o: Node.h Node.cpp
 	
 Edge.o: Edge.h Edge.cpp
 	$(CXX) $(CXXFLAGS) -c Edge.cpp
-	
+
 Simplex.o: Simplex.h Simplex.cpp
 	$(CXX) $(CXXFLAGS) -c Simplex.cpp
+	
+Polynomial.o: Polynomial.h Polynomial.cpp
+	$(CXX) $(CXXFLAGS) -c Polynomial.cpp
+
+Multiindex.o: Multiindex.h Multiindex.cpp
+	$(CXX) $(CXXFLAGS) -c Multiindex.cpp
+
+LaplaceEnergyFunction.o: LaplaceEnergyFunction.h LaplaceEnergyFunction.cpp
+	$(CXX) $(CXXFLAGS) -c LaplaceEnergyFunction.cpp
+
+PolynomialShapeFunction.o: PolynomialShapeFunction.h PolynomialShapeFunction.cpp
+	$(CXX) $(CXXFLAGS) -c PolynomialShapeFunction.cpp
+	
+Integrator.o: Integrator.h Integrator.cpp
+	$(CXX) $(CXXFLAGS) -c Integrator.cpp
+	
+ConstantIntegrator.o: ConstantIntegrator.h ConstantIntegrator.cpp
+	$(CXX) $(CXXFLAGS) -c ConstantIntegrator.cpp
 
 	
 clean:
 	rm -f *.o main
+
+

@@ -4,6 +4,7 @@
 #include "Multiindex.h"
 #include "Node.h"
 #include <map>
+#include <ostream>
 
 
 class Polynomial
@@ -14,9 +15,12 @@ public:
     Polynomial(int dim, int deg) : dimension(dim), degree(deg) {}
     
     ~Polynomial() {}
+    
+    int GetDimension() const {return dimension;}
         
         
     std::map<Multiindex, double>& GetCoefficients() {return coeffs;}
+    const std::map<Multiindex, double>& GetCoefficients() const {return coeffs;}
     
     Polynomial Derivative(int variable) const;
     
@@ -25,11 +29,13 @@ public:
 
     
 private: 
-    int dimension;
-    int degree;
+    int dimension; //indicates the number of (possible) variables
+    int degree; //indicates the highest monomial order
     std::map<Multiindex, double> coeffs;
     
 };
+
+std::ostream& operator<<(std::ostream& ofs, const Polynomial& poly);
 
 
 #endif /* POLYNOMIAL_H */

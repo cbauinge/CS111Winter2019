@@ -23,7 +23,8 @@ public:
     
     virtual ~PolynomialShapeFunction() {}
     
-    virtual double operator() (const Node& x) const;
+    virtual double Eval (int id, const Node& x) const;
+    virtual std::vector<double> DEval(int id, const Node& x) const;
     
 private:
     std::vector<Polynomial> polys;

@@ -18,9 +18,9 @@ public:
     
     Writer();
     
-    int WriteSolution(const Mesh* const mesh, const double * const u, unsigned n, const char* name, EFormat format) const;
-    int WriteNodes(std::vector<const Node*> coordinates, const char* name, EFormat format) const;    
-    int WriteMesh(const Mesh* const mesh, const char* name, EFormat format) const;
+    int WriteSolution(const Mesh* const mesh, const double * const u, unsigned n, const char* name, const char* path, EFormat format) const;
+    int WriteNodes(std::vector<const Node*> coordinates, const char* name, const char* path, EFormat format) const;    
+    int WriteMesh(const Mesh* const mesh, const char* name, const char* path, EFormat format) const;
     
     template<typename T>
     int WritepArray(std::vector<const T*> v, const char* name, EFormat format) const
@@ -43,7 +43,7 @@ public:
             std::cout << "Other formats are not possible yet." << std::endl;
         
         
-        std::cout << "Successfully wrote array with " << v.size() << " elements to " << std::string(name) << std::endl;
+        //std::cout << "Successfully wrote array with " << v.size() << " elements to " << std::string(name) << std::endl;
         return 0;
     }
     
@@ -68,7 +68,7 @@ public:
             std::cout << "Other formats are not possible yet." << std::endl;
         
         
-        std::cout << "Successfully wrote array with " << v.size() << " elements to " << std::string(name) << std::endl;
+        //std::cout << "Successfully wrote array with " << v.size() << " elements to " << std::string(name) << std::endl;
         return 0;
     }
     

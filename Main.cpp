@@ -18,8 +18,8 @@ int main(int argc, char * argv [])
     try
     {
         Meshgenerator test_generator;
-        int n = argc == 2 ? std::stoi(argv[1]) : 1;
-        std::cout << "n = " << n << std::endl;
+        int n = argc == 2 ? std::stoi(argv[1]) : 3;
+        std::cout << "number of triangles in 1 direction = " << n << std::endl;
         const Mesh* const testmesh = test_generator.Generate(n);
         
         
@@ -35,7 +35,7 @@ int main(int argc, char * argv [])
                
         
         Writer writer;
-        writer.WriteMesh(testdomain->GetMesh(), "Testdomain", Writer::EFormat::CSV);
+        writer.WriteMesh(testdomain->GetMesh(), "Testdomain", "input", Writer::EFormat::CSV);
         
         Solver testsolver;
         

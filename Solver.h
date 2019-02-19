@@ -11,6 +11,13 @@ public:
     int Solve(const Domain * const domain);
 
 private:
+    //function that takes a vector of ids and generates a vector,
+    //where the position in the vector is the id and the value 
+    //is the position in the original vector
+    std::vector<int> GeneratePositionInMatrixLookup(const std::vector<int>& Ids) const;
+    
+    //Generate A, b
+    void GenerateSoE(const Domain* const domain, double * A, double * b, unsigned n);
 
 };
 

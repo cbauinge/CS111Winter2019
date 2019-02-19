@@ -4,7 +4,7 @@
 
 std::ostream& operator<<(std::ostream& os, const Edge& e)
 {
-    os << e.GetPoint(0) << "," << e.GetPoint(1);
+    os << e.GetNode(0) << "," << e.GetNode(1);
     
     return os;
 }

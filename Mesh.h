@@ -22,9 +22,9 @@ public:
          std::vector<int> inner_nodes,
          std::vector<std::vector<int> > node2edgeinnernode);
     
-    const Node& GetNode(int id) const {return nodes_[id];}
-    const Edge& GetEdge(int id) const {return edges_[id];}
-    const Simplex& GetSimplex(int id) const {return simplices_[id];}
+    const Node* GetNode(int id) const {return &nodes_[id];}
+    const Edge* GetEdge(int id) const {return &edges_[id];}
+    const Simplex* GetSimplex(int id) const {return &simplices_[id];}
     const std::vector<int>& GetEdgesFromNode(int id) const {return node2edge_[id];}
     const std::vector<int>& GetSimplicesFromNode(int id) const {return node2simplex_[id];}
     const std::vector<int>& GetSimplicesFromEdge(int id) const {return edge2simplex_[id];}

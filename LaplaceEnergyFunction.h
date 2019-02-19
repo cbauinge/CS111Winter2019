@@ -13,7 +13,7 @@ public:
     
     virtual ~LaplaceEnergyFunction() {}
     
-    virtual double operator()(const Node& x) const;
+    virtual double Eval(const Node& x, const ShapeFunction* s, int localid1, int localid2) const;
     
     
     

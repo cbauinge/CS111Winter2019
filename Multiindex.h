@@ -2,22 +2,27 @@
 #define MULTIINDEX_H
 
 #include <vector>
+#include <ostream>
 
 
 class Multiindex
 {
 public:
-    Multiindex(int deg, std::vector<int>& vals) : d(deg), values(vals) {}
+    Multiindex(std::vector<int>& vals) : values(vals) {}
     
     int abs() const;
     int& operator[] (unsigned index);
+    int operator[] (unsigned index) const;
+    int size() const {return values.size();}
+    bool operator <  (const Multiindex& m) const;
     
     
 private:
-    int d;
     std::vector<int> values;
     
     
 };
+
+std::ostream& operator<<(std::ostream& ofs, const Multiindex& m);
 
 #endif /*MULTIINDEX_H*/

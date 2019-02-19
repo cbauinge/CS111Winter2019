@@ -10,7 +10,7 @@ Writer::Writer()
 
 
 
-int Writer::WriteSolution(const Mesh* const mesh, const double * const u, unsigned n, const char* name, EFormat format) const
+int Writer::WriteSolution(const Mesh* const mesh, const double * const u, unsigned n, const char* name, const char* path, EFormat format) const
 {
     if (format == EFormat::CSV)
     {
@@ -18,9 +18,9 @@ int Writer::WriteSolution(const Mesh* const mesh, const double * const u, unsign
             std::cout << "got a dimension problem. Number of values does not fit with number of points." << std::endl;
         else
         {
-            WriteMesh(mesh, name, format);
+            WriteMesh(mesh, name, path, format);
             
-            std::ofstream ofs((std::string("solution_")+std::string(name)).c_str(), std::ofstream::out);
+            std::ofstream ofs((std::string(path) + std::string("/") + std::string("solution_")+std::string(name)).c_str(), std::ofstream::out);
             if (ofs.is_open())
             {
                 for (unsigned i = 0; i < n; i++)
@@ -41,9 +41,9 @@ int Writer::WriteSolution(const Mesh* const mesh, const double * const u, unsign
 }
 
 
-int Writer::WriteNodes(std::vector<const Node*> coordinates, const char* name, EFormat format) const
+int Writer::WriteNodes(std::vector<const Node*> coordinates, const char* name, const char* path, EFormat format) const
 {
-    WritepArray<Node>(coordinates, (std::string("nodes_")+std::string(name)).c_str(), format);
+    WritepArray<Node>(coordinates, (std::string(path) + std::string("/") + std::string("nodes_")+std::string(name)).c_str(), format);
     /*if (format == EFormat::CSV)
     {
         std::ofstream ofs((std::string("nodes_") + std::string(name)).c_str(), std::ofstream::out);
@@ -66,11 +66,11 @@ int Writer::WriteNodes(std::vector<const Node*> coordinates, const char* name, E
     return 0;
 }
 
-int Writer::WriteMesh(const Mesh* const mesh, const char* name, EFormat format) const
+int Writer::WriteMesh(const Mesh* const mesh, const char* name, const char* path, EFormat format) const
 {
-    WriteNodes(mesh->GetpNodes(), name, format);
-    WritepArray<Edge>(mesh->GetpEdges(), (std::string("edges_")+std::string(name)).c_str(), format);
-    WritepArray<Simplex>(mesh->GetpSimplices(), (std::string("simplices_")+std::string(name)).c_str(), format);
+    WriteNodes(mesh->GetpNodes(), name, path, format);
+    WritepArray<Edge>(mesh->GetpEdges(), (std::string(path) + std::string("/") + std::string("edges_")+std::string(name)).c_str(), format);
+    WritepArray<Simplex>(mesh->GetpSimplices(), (std::string(path) + std::string("/") + std::string("simplices_")+std::string(name)).c_str(), format);
     
     
     return 0;

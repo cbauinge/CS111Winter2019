@@ -9,7 +9,7 @@ public:
     Edge(int p1, int p2) : p1_(p1), p2_(p2) {}
     Edge() : Edge(0, 0) {}
     
-    int GetPoint(int id) const {return id == 0 ? p1_ : p2_;} 
+    int GetNode(int id) const {return id == 0 ? p1_ : p2_;} 
     
     //friend std::ostream& operator<<(std::ostream& os, const Edge& e);
     

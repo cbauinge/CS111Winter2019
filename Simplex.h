@@ -3,31 +3,28 @@
 
 #include<vector>
 #include <ostream>
+#include "Element.h"
+#include "Node.h"
+#include "Edge.h"
 
-class Simplex
+class Simplex : public Element
 {
 public:
-    Simplex(std::vector<int> pts, std::vector<int> edges, double area = 0) : pts_(pts), edges_(edges), area_(area) {}
+    Simplex(std::vector<Node*>& nodes, std::vector<Edge*>& edges, double area);
     
     
-    int GetNode(int id) const {return pts_[id]; }
-    int GetEdge(int id) const {return edges_[id]; }
-    double GetArea() const {return area_;}
+    virtual double GetArea() const {return area_;}
     
-    //Returns the position of the node in the vector pts_.
-    //Returns -1 if the given node is not in this simplex
-    int GetLocalNodeId(int id) const;
-    
-    //friend std::ostream& operator<<(std::ostream& os, const Simplex& s);
+protected:
+    virtual bool IsNondegenerate() const;
+    virtual std::ostream& Dump(std::ostream& os) const;
     
 private:
-    std::vector<int> pts_;
-    std::vector<int> edges_;
     double area_;
     
 };
 
-std::ostream& operator<<(std::ostream& os, const Simplex& s);
+
 
 
 #endif /* SIMPLEX_H */

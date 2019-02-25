@@ -31,13 +31,11 @@ double Polynomial::operator() (const Node& x) const
 #endif
     for (auto iter = coeffs.begin(); iter != coeffs.end(); iter++)
     {
-        double term = 1.0;
+        double term = iter->second;
         for (int i = 0; i < iter->first.size(); i++)
         {
             if (iter->first[i] != 0)
-                term *= std::pow(x[i], iter->first[i])*iter->second;
-            else if (iter->first.abs() == 0)
-                term *= iter->second;
+                term *= std::pow(x[i], iter->first[i]);
             
             #ifdef DEBUG
             std::cout << "term = " << term << std::endl;

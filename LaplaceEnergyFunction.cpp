@@ -17,7 +17,7 @@ double LaplaceEnergyFunction::Eval (const Node& x, const ShapeFunction* s, int l
     for (int i = 0; i < d1.size(); i++)
     {
 #ifdef DEBUG
-        std::cout << "d1[i], d2[i] =" <<  d1[i] << ", " <<d2[i] << std::endl;
+        std::cout << "\t\t\t\td1[i], d2[i] =" <<  d1[i] << ", " <<d2[i] << std::endl;
 #endif
         sum += d1[i]*d2[i];
     }

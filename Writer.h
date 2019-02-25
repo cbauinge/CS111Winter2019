@@ -18,8 +18,7 @@ public:
     
     Writer();
     
-    int WriteSolution(const Mesh* const mesh, const double * const u, unsigned n, const char* name, const char* path, EFormat format) const;
-    int WriteNodes(std::vector<const Node*> coordinates, const char* name, const char* path, EFormat format) const;    
+    int WriteSolution(const Mesh* const mesh, const double * const u, unsigned n, const char* name, const char* path, EFormat format) const;  
     int WriteMesh(const Mesh* const mesh, const char* name, const char* path, EFormat format) const;
     
     template<typename T>
@@ -72,23 +71,41 @@ public:
         return 0;
     }
     
+    template<typename T>
+    int WriteVectorArray(std::vector<std::vector<T> > v, const char* name, EFormat format) const
+    {
+        if (format == EFormat::CSV)
+        {
+            std::ofstream ofs(name, std::ofstream::out);
+            if (ofs.is_open())
+            {
+                for (unsigned i = 0; i < v.size(); i++)
+                {
+                    for (unsigned j = 0; j < v[i].size(); j++) {
+                        ofs << v[i][j]; 
+                        if (j < v[i].size() -1)
+                            ofs << ", ";
+                    }
+                    if (i < v.size() -1)
+                        ofs << std::endl;
+                }
+                ofs.close();
+            }
+            else
+                return 1;
+        }
+        else
+            std::cout << "Other formats are not possible yet." << std::endl;
+        
+        
+        //std::cout << "Successfully wrote array with " << v.size() << " elements to " << std::string(name) << std::endl;
+        return 0;
+    }
+    
     
     
 private:
 };
-
-template<typename T>
-inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
-{
-    for (int i = 0; i < v.size(); i++)
-    {
-        os << v[i];
-        if (i < v.size() -1)
-            os << ",";
-    }
-    
-    return os;
-}
 
 
 #endif /* WRITER_H */

@@ -4,7 +4,7 @@
 
 //#define DEBUG
 
-double ConstantIntegrator::Integrate(const Simplex * const s, const EnergyFunction* const e, const ShapeFunction* const shape, int nodeid1, int nodeid2) const
+double ConstantIntegrator::Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape, int localnodeid1, int localnodeid2) const
 {
     //Get volume and midpoint of the simplex, return the energy function evaluated at the shape function at the midpoint. 
     
@@ -20,18 +20,13 @@ double ConstantIntegrator::Integrate(const Simplex * const s, const EnergyFuncti
     
     //ATTENTION: for this version I assume that all the elements look the same like the unit element. In a proper version, this should not be the case. We would need to compute the right evalutaiton points for the energy and the 'shifted' shape functions since the shape function we get is the prototype on the unit element.
     
-    int localid1 = s->GetLocalNodeId(nodeid1);
-    int localid2 = s->GetLocalNodeId(nodeid2);
-    Node x(0, 0);
+    Node c = s->GetCentroid();
     
-    if (localid1 == -1 || localid2 == -1)
-    {
-        std::cout << "nodeid1 = " << nodeid1 << "\tnodeid2 = " << nodeid2 << std::endl;
-        std::cout << *s << std::endl;
-        throw std::invalid_argument("The given node ids are not part of the given simplex in ConstantIntegrator::Integrate");
-    }
     //Evaluate EnergyFunction at the centroid.    
-    double energy = e->Eval(x, shape, localid1, localid2);
+    double energy = e->Eval(c, shape, localnodeid1, localnodeid2);
+    //usually we need to account for the deformation compared to the unit element used in the 'shape' class. For tests, due to the specific setup i use, we 
+    //set the energy to -0.5 if the local ids are not equal and 0.5 if they are 
+    energy /= 2*dV;
 #ifdef DEBUG
     std::cout << "simplex energy " << energy << std::endl;
 #endif

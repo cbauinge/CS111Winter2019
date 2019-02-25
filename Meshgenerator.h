@@ -13,6 +13,7 @@ public:
     const Mesh* const Generate(int n) const;
     
 private:
+    int GetEdgeIdFromNodes(const Node* node1, const Node* node2, std::vector<Edge*>& edges) const;
     
     
 };

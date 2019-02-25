@@ -5,7 +5,7 @@
 #include<vector>
 #include "Node.h"
 #include "Edge.h"
-#include "Simplex.h"
+#include "Element.h"
 
 
 class Mesh
@@ -13,36 +13,47 @@ class Mesh
 public:
     Mesh() = default;
     
-    Mesh(std::vector<Node> nodes, 
-         std::vector<Edge> edges, 
-         std::vector<Simplex> simplices, 
+    Mesh(std::vector<Node*> nodes, 
+         std::vector<Edge*> edges, 
+         std::vector<Element*> elements, 
          std::vector<std::vector<int> > node2edge,
-         std::vector<std::vector<int> > node2simplex,
-         std::vector<std::vector<int> > edge2simplex,
+         std::vector<std::vector<int> > node2element,
+         std::vector<std::vector<int> > edge2element,
          std::vector<int> inner_nodes,
          std::vector<std::vector<int> > node2edgeinnernode);
     
-    const Node* GetNode(int id) const {return &nodes_[id];}
-    const Edge* GetEdge(int id) const {return &edges_[id];}
-    const Simplex* GetSimplex(int id) const {return &simplices_[id];}
+    ~Mesh();
+    
+    const Node* GetNode(int id) const {return nodes_[id];}
+    int GetNodeId(const Node* node) const;
+    const Edge* GetEdge(int id) const {return edges_[id];}
+    const Element* GetElement(int id) const {return elements_[id];}
     const std::vector<int>& GetEdgesFromNode(int id) const {return node2edge_[id];}
-    const std::vector<int>& GetSimplicesFromNode(int id) const {return node2simplex_[id];}
-    const std::vector<int>& GetSimplicesFromEdge(int id) const {return edge2simplex_[id];}
+    const std::vector<int>& GetElementsFromNode(int id) const {return node2element_[id];}
+    const std::vector<int>& GetElementsFromEdge(int id) const {return edge2element_[id];}
     const std::vector<int>& GetInnerNodeIds() const {return inner_nodes_;}
     std::vector<const Node*> GetpInnerNodes() const;
     std::vector<const Node*> GetpNodes() const;
     std::vector<const Edge*> GetpEdges() const;
-    std::vector<const Simplex*> GetpSimplices() const;
+    std::vector<const Element*> GetpElements() const;
     const std::vector<int>& GetEdgesToInnerNodesFromNode(int id) const {return node2edgeinnernode_[id];}
+    
+    std::vector<std::vector<int> > GetEdges2Nodes() const;
+    std::vector<std::vector<int> > GetElements2Nodes() const;
+    const std::vector<std::vector<int> >& GetNodes2Edges() const {return node2edge_;}
+    const std::vector<std::vector<int> >& GetNodes2Elements() const {return node2element_;}
+    const std::vector<std::vector<int> >& GetEdges2Elements() const {return edge2element_;}
+    const std::vector<std::vector<int> >& GetNodes2EdgesInnerNodes() const {return node2edgeinnernode_;}
+    
     
     
 private:
-    std::vector<Node> nodes_;
-    std::vector<Edge> edges_; 
-    std::vector<Simplex> simplices_; 
+    std::vector<Node*> nodes_;
+    std::vector<Edge*> edges_; 
+    std::vector<Element*> elements_; 
     std::vector<std::vector<int> > node2edge_;
-    std::vector<std::vector<int> > node2simplex_;
-    std::vector<std::vector<int> > edge2simplex_;
+    std::vector<std::vector<int> > node2element_;
+    std::vector<std::vector<int> > edge2element_;
     std::vector<int> inner_nodes_;
     std::vector<std::vector<int> > node2edgeinnernode_;
 };

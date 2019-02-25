@@ -4,7 +4,7 @@
 
 #include "Integrator.h"
 
-#include "Simplex.h"
+#include "Element.h"
 #include "EnergyFunction.h"
 #include "ShapeFunction.h"
 
@@ -18,7 +18,7 @@ public:
     virtual ~ConstantIntegrator() {}
     
     
-    virtual double Integrate(const Simplex * const s, const EnergyFunction* const e, const ShapeFunction* const shape, int nodeid1, int nodeid2) const;
+    virtual double Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape, int nodeid1, int nodeid2) const;
     
 };
 

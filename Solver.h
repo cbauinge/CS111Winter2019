@@ -18,6 +18,7 @@ private:
     
     //Generate A, b
     void GenerateSoE(const Domain* const domain, double * A, double * b, unsigned n);
+    void DumpSoE(double *A, double* b, int n) const;
 
 };
 

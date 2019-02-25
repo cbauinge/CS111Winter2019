@@ -2,20 +2,21 @@
 #define EDGE_H
 
 #include <ostream>
+#include "Node.h"
 
 class Edge
 {
 public:
-    Edge(int p1, int p2) : p1_(p1), p2_(p2) {}
-    Edge() : Edge(0, 0) {}
+    Edge(Node* n1, Node* n2) : n1_(n1), n2_(n2) {}
     
-    int GetNode(int id) const {return id == 0 ? p1_ : p2_;} 
+    const Node* const GetNode(int id) const {return id == 0 ? n1_ : n2_;} 
+    Node* GetNode(int id) {return id == 0 ? n1_ : n2_;} 
     
     //friend std::ostream& operator<<(std::ostream& os, const Edge& e);
     
 private:
-    int p1_;
-    int p2_;
+    Node* n1_;
+    Node* n2_;
     
     
 };

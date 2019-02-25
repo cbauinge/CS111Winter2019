@@ -2,14 +2,14 @@ LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/
 
 CXX = g++
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -O2
 
 
 
-main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o
-	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o $(LIBS)
+main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o
+	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o $(LIBS)
 	
-Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o
+Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS)
 	
 Solver.o: Solver.cpp Solver.h Domain.h Writer.h
@@ -32,6 +32,9 @@ Node.o: Node.h Node.cpp
 	
 Edge.o: Edge.h Edge.cpp
 	$(CXX) $(CXXFLAGS) -c Edge.cpp
+	
+Element.o: Element.h Element.cpp
+	$(CXX) $(CXXFLAGS) -c Element.cpp
 
 Simplex.o: Simplex.h Simplex.cpp
 	$(CXX) $(CXXFLAGS) -c Simplex.cpp

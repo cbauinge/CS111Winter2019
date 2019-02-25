@@ -1,6 +1,7 @@
 #include "Writer.h"
 #include <iostream>
 #include <fstream>
+#include "Element.h"
 
 
 
@@ -25,7 +26,9 @@ int Writer::WriteSolution(const Mesh* const mesh, const double * const u, unsign
             {
                 for (unsigned i = 0; i < n; i++)
                 {
-                    ofs << u[i] << std::endl;
+                    ofs << u[i];
+                    if (i < n-1)
+                        ofs << std::endl;
                 }
                 ofs.close();
             }
@@ -40,37 +43,15 @@ int Writer::WriteSolution(const Mesh* const mesh, const double * const u, unsign
     return 0;
 }
 
-
-int Writer::WriteNodes(std::vector<const Node*> coordinates, const char* name, const char* path, EFormat format) const
-{
-    WritepArray<Node>(coordinates, (std::string(path) + std::string("/") + std::string("nodes_")+std::string(name)).c_str(), format);
-    /*if (format == EFormat::CSV)
-    {
-        std::ofstream ofs((std::string("nodes_") + std::string(name)).c_str(), std::ofstream::out);
-        if (ofs.is_open())
-        {
-            for (unsigned i = 0; i < coordinates.size(); i++)
-            {
-                ofs << coordinates[i] << std::endl;
-            }
-            ofs.close();
-        }
-        else
-            return 1;
-    }
-    else
-        std::cout << "Other formats are not possible yet." << std::endl;
-    
-    
-    std::cout << "Successfully wrote mesh to " << std::string(name) << std::endl;*/
-    return 0;
-}
-
 int Writer::WriteMesh(const Mesh* const mesh, const char* name, const char* path, EFormat format) const
 {
-    WriteNodes(mesh->GetpNodes(), name, path, format);
-    WritepArray<Edge>(mesh->GetpEdges(), (std::string(path) + std::string("/") + std::string("edges_")+std::string(name)).c_str(), format);
-    WritepArray<Simplex>(mesh->GetpSimplices(), (std::string(path) + std::string("/") + std::string("simplices_")+std::string(name)).c_str(), format);
+    WritepArray<Node>(mesh->GetpNodes(), (std::string(path) + std::string("/") + std::string("nodes_")+std::string(name)).c_str(), format);    
+    WriteVectorArray<int>(mesh->GetEdges2Nodes(), (std::string(path) + std::string("/") + std::string("edges_")+std::string(name)).c_str(), format);
+    WriteVectorArray<int>(mesh->GetElements2Nodes(), (std::string(path) + std::string("/") + std::string("simplices_")+std::string(name)).c_str(), format);
+    WriteVectorArray<int>(mesh->GetNodes2Edges(), (std::string(path) + std::string("/") + std::string("nodes2edges_")+std::string(name)).c_str(), format);
+    WriteVectorArray<int>(mesh->GetNodes2Elements(), (std::string(path) + std::string("/") + std::string("nodes2elements_")+std::string(name)).c_str(), format);
+    WriteVectorArray<int>(mesh->GetEdges2Elements(), (std::string(path) + std::string("/") + std::string("edges2elements_")+std::string(name)).c_str(), format);
+    WriteVectorArray<int>(mesh->GetNodes2EdgesInnerNodes(), (std::string(path) + std::string("/") + std::string("node2edgesinnernode_")+std::string(name)).c_str(), format);
     
     
     return 0;

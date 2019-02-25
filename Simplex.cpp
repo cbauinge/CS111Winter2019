@@ -1,26 +1,38 @@
 #include "Simplex.h"
 
 #include <ostream>
+#include <stdexcept>
 
-
-int Simplex::GetLocalNodeId(int id) const
+Simplex::Simplex(std::vector<Node*>& nodes, std::vector<Edge*>& edges, double area = 0) :
+    Element(Element::Type::Simplex, nodes, edges), area_(area)
 {
-    for (unsigned i = 0; i < pts_.size(); i++)
-    {
-        if (id == pts_[i])
-            return i;
-    }
+    if (!IsNondegenerate())
+        throw std::invalid_argument("Simplex is degenerate");
+}
+
+
+bool Simplex::IsNondegenerate() const
+{
+    if (nodes_.size() != 3)
+        return false;
+    if (area_ == 0)
+        return false;
     
-    return -1;
+    if (nodes_[0] == nodes_[1] || nodes_[0] == nodes_[2] || nodes_[1] == nodes_[2])
+        return false;
+    
+    //NOTE: there are more cases which i dont cover here. Like if they all lie on a single line etc...
+    
+    return true;
 }
 
 
 
-std::ostream& operator<<(std::ostream& os, const Simplex& s)
+std::ostream& Simplex::Dump(std::ostream& os) const
 {
-    os << s.GetNode(0) << "," << s.GetNode(1) << "," << s.GetNode(2)
-        << "," << s.GetEdge(0) << "," << s.GetEdge(1) << "," << s.GetEdge(2) 
-        << "," << s.GetArea();
+    os << *GetNode(0) << "," << *GetNode(1) << "," << *GetNode(2)
+        << "," << *GetEdge(0) << "," << *GetEdge(1) << "," << *GetEdge(2) 
+        << "," << GetArea();
         
     return os;
 }

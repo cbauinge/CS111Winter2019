@@ -9,7 +9,7 @@ Matrix<double> ShapeFunction::DEval(const Node& x) const
         Vector<double> d = DEval(j, x);
         for (int i = 0; i < d.GetDimension(); i++)
         {
-            val[i][j] = d[j];
+            val[i][j] = d[i];
         }
     }
     return val;
@@ -29,7 +29,7 @@ Matrix<double> ShapeFunction::GetJacobian(const Node& x, const Element* const el
             double sum = 0.0;
             for (int a = 0; a < GetNrShapeFunctions(); a++)
             {
-                sum += (*elem->GetNode(a))[i]*D[a][j];
+                sum += (*elem->GetNode(a))[i]*D[j][a];
             }
             J[i][j] = sum;
         }

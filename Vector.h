@@ -2,6 +2,7 @@
 #define VECTOR_H
 
 #include <map>
+#include <ostream>
 
 template <typename T>
 class Vector
@@ -23,6 +24,9 @@ public:
         if (i >= dim)
             throw std::out_of_range("In Vector class");
 
+        if (values.find(i) == values.end())
+            throw std::invalid_argument("In Vector class");
+
         return values.at(i);    
     }
 
@@ -36,6 +40,7 @@ public:
         
         return val;
     }
+
 
     Vector<T>& operator*=(const double& rhs)
     {
@@ -71,6 +76,23 @@ protected:
     int dim;
     std::map<int, T> values;
 };
+
+
+template <typename T>
+std::ofstream& operator<<(std::ofstream& ofs, const Vector<T>& v)
+{
+    for (int i = 0; i < v.GetDimension(); i++) {
+        if (v.Exists(i))
+            ofs << v[i] << ", ";
+        else
+        {
+            ofs << 0 << ", ";
+        }
+        
+    }
+
+    return ofs;
+}
 
 
 

@@ -20,10 +20,10 @@ protected:
     std::vector<int> GeneratePositionInMatrixLookup(const std::vector<int>& Ids, int n) const;
     
     //Generate A, b
-    void GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<double>& b, unsigned n);
+    void GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<double>& b);
 
 
-    void DumpSoE(double *A, double* b, int n) const;
+    void DumpSoE(const Matrix<double>& A, const Vector<double>& b) const;
 
 };
 

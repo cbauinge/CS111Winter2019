@@ -2,7 +2,7 @@ LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/
 
 CXX = g++
-CXXFLAGS = -Wall -g
+CXXFLAGS = -Wall -O2
 
 
 

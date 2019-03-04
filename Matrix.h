@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "Vector.h"
+#include <ostream>
 
 template <typename T>
 class Matrix
@@ -47,6 +48,23 @@ public:
         return *this;
     }
 
+    Vector<T> operator*(const Vector<T>& rhs) const
+    {
+        if (rhs.GetDimension() != dimcols)
+            throw std::invalid_argument("Trying to multiply matrix and vector with different dimensions.");
+
+        Vector<T> v(dimrows);
+        for (int i = 0; i < dimrows; i++)
+        {
+            v[i] = 0;
+            for (int j = 0; j < dimcols; j++) {
+                if (Exists(i, j))
+                    v[i] += rhs[j]*operator[](i)[j];
+            }
+        }
+        return v;
+    }
+
     int GetDimensionRows() const {return dimrows;}
     int GetDimensionCols() const {return dimcols;}
     const std::map<int, Vector<T> >& GetValues() const {return values;}
@@ -60,6 +78,11 @@ public:
         }
         return false;
     }
+
+    bool Exists(int i) const
+    {
+        return values.find(i) != values.end();
+    }
     
     Matrix<T> operator*(const double& rhs) const 
     {
@@ -70,6 +93,7 @@ public:
         }
         return val;
     }
+
 
     static Matrix<T> Inverse(const Matrix<T>& M) 
     {
@@ -83,6 +107,9 @@ public:
         Matrix<T> inv(M.GetDimensionRows(), M.GetDimensionCols());
 
         double det = Determinant(M);
+        if (det == 0)
+            throw std::logic_error("Attempting to invert singular Matrix");
+
         inv[0][0] = M[1][1]/det;
         inv[0][1] = -M[0][1]/det;
         inv[1][0] = -M[1][0]/det;
@@ -100,14 +127,47 @@ public:
             throw std::invalid_argument("didn't implement Determinant function for more than 2 dimensions yet");
 
         
-        return M[0][0]*M[1][1] - M[1][2]*M[2][1];
+        return M[0][0]*M[1][1] - M[0][1]*M[1][0];
     } 
+
+    static Matrix<T> Transpose(const Matrix<T>& M)
+    {
+        Matrix<T> V(M.GetDimensionCols(), M.GetDimensionRows());
+
+        for (int i = 0; i < M.GetDimensionRows(); i++)
+        {
+            for (int j = 0; j < M.GetDimensionCols(); j++)
+            {
+                V[j][i] = M[i][j];
+            }
+        }
+        return V;
+    }
 
 protected:
     int dimrows;
     int dimcols;
     std::map<int, Vector<T> > values;
 };
+
+template <typename T>
+std::ofstream& operator<<(std::ofstream& ofs, const Matrix<T>& M)
+{
+    for (int i = 0; i < M.GetDimensionRows(); i++)
+    {
+        if (M.Exists(i))
+            ofs << M[i];
+        else
+        {
+            for (int j = 0; j < M.GetDimensionCols(); j++)
+            {
+                ofs << 0 << ", ";
+            }
+        }
+        ofs << std::endl;            
+    }
+    return ofs;
+}
 
 
 #endif /* MATRIX_H */

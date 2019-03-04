@@ -26,7 +26,7 @@ std::vector<int> Solver::GeneratePositionInMatrixLookup(const std::vector<int>& 
 }
 
 
-void Solver::GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<double>& b, unsigned n)
+void Solver::GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<double>& b)
 {
     std::vector<const Element* > elems = domain->GetMesh()->GetpElements();
     std::vector<int> positions = GeneratePositionInMatrixLookup(domain->GetMesh()->GetInnerNodeIds(), domain->GetMesh()->GetNumberNodes());
@@ -58,13 +58,13 @@ void Solver::GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<d
     }
 
     #ifdef DEBUG
-    DumpSoE(A, b, n);
+    DumpSoE(A, b);
     #endif
 }
 
 
 
-void Solver::DumpSoE(double *A, double* b, int n) const
+void Solver::DumpSoE(const Matrix<double>& A, const Vector<double>& b) const
 {
     std::ofstream ofs("Matrix.data", std::ofstream::out);
     if (!ofs.is_open())
@@ -73,16 +73,7 @@ void Solver::DumpSoE(double *A, double* b, int n) const
         return;
     }
     
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            ofs << A[i + j*n];
-            if (j < n-1)
-                ofs << ", ";        
-        }
-        ofs << std::endl;
-    }
+    ofs << A << std::endl;
     
     ofs.close();
     
@@ -92,11 +83,7 @@ void Solver::DumpSoE(double *A, double* b, int n) const
         std::cout << "Couldnt write matrix" << std::endl;
         return;
     }
-    for (int i = 0; i < n; i++)
-    {
-        ofrhs << b[i];
-        ofrhs << std::endl;
-    }
+    ofrhs << b << std::endl;
     
     ofrhs.close();
 }

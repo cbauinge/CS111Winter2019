@@ -27,7 +27,7 @@ int LapackSolver::Solve(const Domain * const domain)
     int ipiv[n];
     
     std::cout << "\tStart Generating SoE..." << std::endl;
-    GenerateSoE(domain, A, b, n);
+    GenerateSoE(domain, A, b);
     std::cout << "\t...Finished Generating SoE" << std::endl;
     
     std::cout << "\tStart solving the SoE..." << std::endl;

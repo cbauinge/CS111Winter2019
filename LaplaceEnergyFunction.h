@@ -4,6 +4,7 @@
 
 #include "EnergyFunction.h"
 #include "Node.h"
+#include "Matrix.h"
 
 
 class LaplaceEnergyFunction : public EnergyFunction
@@ -13,7 +14,7 @@ public:
     
     virtual ~LaplaceEnergyFunction() {}
     
-    virtual double Eval(const Node& x, const ShapeFunction* s, int localid1, int localid2) const;
+    virtual Matrix<double> Eval(const Node& x, const ShapeFunction* s, const Element* element) const;
     
     
     

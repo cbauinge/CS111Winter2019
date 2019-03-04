@@ -18,7 +18,7 @@ public:
     virtual ~ConstantIntegrator() {}
     
     
-    virtual double Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape, int nodeid1, int nodeid2) const;
+    virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const;
     
 };
 

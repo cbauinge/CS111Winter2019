@@ -2,18 +2,27 @@ LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/
 
 CXX = g++
-CXXFLAGS = -Wall -O2
+CXXFLAGS = -Wall -g
 
 
 
-main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o
-	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o $(LIBS)
+main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
+PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
+ShapeFunction.o
+	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o \
+	Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o \
+	SourceFunction.o Equation.o LapackSolver.o ShapeFunction.o $(LIBS)
 	
-Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o
+Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
+PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
+ShapeFunction.o
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS)
 	
 Solver.o: Solver.cpp Solver.h Domain.h Writer.h
 	$(CXX) $(CXXFLAGS) -c Solver.cpp $(PATHS) $(LIBS)
+
+LapackSolver.o: LapackSolver.cpp LapackSolver.h
+	$(CXX) $(CXXFLAGS) -c LapackSolver.cpp $(PATHS) $(LIBS)
 	
 Domain.o: Domain.cpp Domain.h Mesh.h
 	$(CXX) $(CXXFLAGS) -c Domain.cpp
@@ -56,6 +65,18 @@ Integrator.o: Integrator.h Integrator.cpp
 	
 ConstantIntegrator.o: ConstantIntegrator.h ConstantIntegrator.cpp
 	$(CXX) $(CXXFLAGS) -c ConstantIntegrator.cpp
+
+Equation.o: Equation.h Equation.cpp
+	$(CXX) $(CXXFLAGS) -c Equation.cpp
+
+SourceFunction.o: SourceFunction.h SourceFunction.cpp
+	$(CXX) $(CXXFLAGS) -c SourceFunction.cpp
+
+ShapeFunction.o: ShapeFunction.h ShapeFunction.cpp
+	$(CXX) $(CXXFLAGS) -c ShapeFunction.cpp
+
+TestSourceFunction.o: TestSourceFunction.h TestSourceFunction.cpp
+	$(CXX) $(CXXFLAGS) -c TestSourceFunction.cpp
 
 	
 clean:

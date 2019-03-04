@@ -6,6 +6,7 @@
 #include "EnergyFunction.h"
 #include "ShapeFunction.h"
 #include "Mesh.h"
+#include "Vector.h"
 
 
 class Integrator
@@ -15,8 +16,8 @@ public:
 
     virtual ~Integrator();
     
-    //integrates the EnergyFunction evaluated at the given ShapeFunction attached to nodeid1 and nodeid2 (global mesh ids) over the given Simplex.
-    virtual double Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape, int nodeid1, int nodeid2) const = 0;
+    //integrates the EnergyFunction evaluated the shape function
+    virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const = 0;
     
 protected:
     const Mesh* const mesh_;

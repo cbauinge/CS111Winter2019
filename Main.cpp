@@ -9,6 +9,9 @@
 #include "LaplaceEnergyFunction.h"
 #include "ShapeFunction.h"
 #include "PolynomialShapeFunction.h"
+#include "SourceFunction.h"
+#include "TestSourceFunction.h"
+#include "LapackSolver.h"
 
 #include <iostream>
 #include <exception>
@@ -25,24 +28,25 @@ int main(int argc, char * argv [])
         
         Integrator* integrator = new ConstantIntegrator(testmesh);
         EnergyFunction* energyfct = new LaplaceEnergyFunction();
+        SourceFunction* sourcefct = new TestSourceFunction();
         ShapeFunction* shapefct = new PolynomialShapeFunction(2, 1);       
-        
         
         Domain*  testdomain = new Domain(testmesh);
         testdomain->SetIntegrator(integrator);
-        testdomain->SetEnergyFunction(energyfct);
+        testdomain->SetEquation(new Equation(energyfct, sourcefct));
         testdomain->SetShapeFunction(shapefct);
                
         
         Writer writer;
         writer.WriteMesh(testdomain->GetMesh(), "Testdomain", "input", Writer::EFormat::CSV);
         
-        Solver testsolver;
+        Solver* testsolver = new LapackSolver();
         
-        testsolver.Solve(testdomain);
+        testsolver->Solve(testdomain);
         
         delete testdomain; 
-        delete testmesh;    
+        delete testmesh;
+        delete testsolver;    
         
     }
     catch (const std::exception& e)

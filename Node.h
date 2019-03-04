@@ -14,6 +14,7 @@ public:
     double GetY() const {return y_;}
     double& operator[](int idx) {return idx == 0 ? x_ : y_;}
     const double& operator[] (int idx) const {return idx == 0 ? x_ : y_;}
+    int Dimension() const {return 2;}
     
     Node operator+(const Node& rhs) const;
     Node& operator+=(const Node& rhs);

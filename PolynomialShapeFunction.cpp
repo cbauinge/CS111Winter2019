@@ -66,14 +66,14 @@ double PolynomialShapeFunction::Eval (int id, const Node& x) const
 }
 
 
-std::vector<double> PolynomialShapeFunction::DEval(int id, const Node& x) const
+Vector<double> PolynomialShapeFunction::DEval(int id, const Node& x) const
 {
     if (id >= polys.size())
         throw std::invalid_argument("PolynomialShapeFunction::Eval id out of bounds");
 #ifdef DEBUG
     std::cout << "Poly = " << polys[id] << std::endl;
 #endif
-    std::vector<double> dvals;
+    Vector<double> dvals(polys[id].GetDimension());
     
     for (int i = 0; i < polys[id].GetDimension(); i++) {
         Polynomial dp = polys[id].Derivative(i);
@@ -82,9 +82,15 @@ std::vector<double> PolynomialShapeFunction::DEval(int id, const Node& x) const
         std::cout << "DPoly = " << dp << std::endl;
         std::cout << "dval = " << dpval << std::endl << std::endl;
 #endif
-        dvals.push_back(dpval);
+        dvals[i] = dpval;
     }
         
         
     return dvals;
+}
+
+
+int PolynomialShapeFunction::GetNrShapeFunctions() const
+{
+    return polys.size();
 }

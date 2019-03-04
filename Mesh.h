@@ -34,6 +34,7 @@ public:
     const std::vector<int>& GetInnerNodeIds() const {return inner_nodes_;}
     std::vector<const Node*> GetpInnerNodes() const;
     std::vector<const Node*> GetpNodes() const;
+    int GetNumberNodes() const {return nodes_.size();}
     std::vector<const Edge*> GetpEdges() const;
     std::vector<const Element*> GetpElements() const;
     const std::vector<int>& GetEdgesToInnerNodesFromNode(int id) const {return node2edgeinnernode_[id];}

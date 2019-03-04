@@ -4,7 +4,7 @@
 Domain::Domain(Mesh const * const  mesh) : 
     mesh_(mesh), 
     integrator(nullptr), 
-    energyfunction(nullptr), 
+    equation(nullptr), 
     shapefunction(nullptr)
 {
     
@@ -14,5 +14,7 @@ Domain::Domain(Mesh const * const  mesh) :
 
 Domain::~Domain()
 {
-
+    delete integrator;
+    delete equation;
+    delete shapefunction;
 }

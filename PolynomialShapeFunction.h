@@ -4,6 +4,8 @@
 #include "ShapeFunction.h"
 #include "Node.h"
 #include "Polynomial.h"
+#include "Vector.h"
+#include "Element.h"
 #include <vector>
 #include <map>
 
@@ -24,7 +26,8 @@ public:
     virtual ~PolynomialShapeFunction() {}
     
     virtual double Eval (int id, const Node& x) const;
-    virtual std::vector<double> DEval(int id, const Node& x) const;
+    virtual Vector<double> DEval(int id, const Node& x) const;
+    virtual int GetNrShapeFunctions() const;
     
 private:
     std::vector<Polynomial> polys;

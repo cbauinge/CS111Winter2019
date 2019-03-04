@@ -7,20 +7,22 @@
 
 
 
-double LaplaceEnergyFunction::Eval (const Node& x, const ShapeFunction* s, int localid1, int localid2) const
+Matrix<double> LaplaceEnergyFunction::Eval (const Node& x, const ShapeFunction* s, const Element* element) const
 {
-    std::vector<double> d1 = s->DEval(localid1, x);
-    std::vector<double> d2 = s->DEval(localid2, x);
+    Matrix<double> De(s->GetNrShapeFunctions(), s->GetNrShapeFunctions());
+
+    Matrix<double> J = s->GetJacobian(x, element);
+    Matrix<double> Jinv = Matrix<double>::Inverse(J);
     
-    double sum = 0.0;
-    
-    for (int i = 0; i < d1.size(); i++)
+    for (int i = 0; i < s->GetNrShapeFunctions(); i++)
     {
-#ifdef DEBUG
-        std::cout << "\t\t\t\td1[i], d2[i] =" <<  d1[i] << ", " <<d2[i] << std::endl;
-#endif
-        sum += d1[i]*d2[i];
+        for (int j = 0; j < s->GetNrShapeFunctions(); j++)
+        {
+            Vector<double> di = s->DEval(i,x);
+            Vector<double> dj = s->DEval(j,x);  
+            De[i][j] = Vector<double>::Dot(di, dj); //Gradient*Gradient
+        }
     }
     
-    return sum;
+    return De;
 }

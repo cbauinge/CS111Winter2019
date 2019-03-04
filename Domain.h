@@ -4,7 +4,7 @@
 
 #include "Mesh.h"
 #include "Integrator.h"
-#include "EnergyFunction.h"
+#include "Equation.h"
 #include "ShapeFunction.h"
 
 class Domain
@@ -16,18 +16,18 @@ public:
     const Mesh * const GetMesh() const {return mesh_;}
     
     void SetIntegrator(const Integrator* i) {integrator = i;}
-    void SetEnergyFunction(const EnergyFunction* e) {energyfunction = e;}
+    void SetEquation(const Equation* e) {equation = e;}
     void SetShapeFunction(const ShapeFunction* s) {shapefunction = s;}
     
     const Integrator* const GetIntegrator() const {return integrator;}
-    const EnergyFunction* const GetEnergyFunction() const {return energyfunction;}
+    const Equation* const GetEquation() const {return equation;}
     const ShapeFunction* const GetShapeFunction() const {return shapefunction;}
     
 private:
     const Mesh * const mesh_; 
     
     const Integrator* integrator;
-    const EnergyFunction* energyfunction;
+    const Equation* equation;
     const ShapeFunction* shapefunction;
 };
     

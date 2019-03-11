@@ -6,6 +6,7 @@
 #include "Integrator.h"
 #include "Equation.h"
 #include "ShapeFunction.h"
+#include "BoundaryCondition.h"
 
 class Domain
 {
@@ -18,10 +19,12 @@ public:
     void SetIntegrator(const Integrator* i) {integrator = i;}
     void SetEquation(const Equation* e) {equation = e;}
     void SetShapeFunction(const ShapeFunction* s) {shapefunction = s;}
+    void SetBoundaryCondition(const BoundaryCondition* bc) {boundarycondition = bc;}
     
     const Integrator* const GetIntegrator() const {return integrator;}
     const Equation* const GetEquation() const {return equation;}
     const ShapeFunction* const GetShapeFunction() const {return shapefunction;}
+    const BoundaryCondition* const GetBoundaryCondition() const {return boundarycondition;}
     
 private:
     const Mesh * const mesh_; 
@@ -29,6 +32,7 @@ private:
     const Integrator* integrator;
     const Equation* equation;
     const ShapeFunction* shapefunction;
+    const BoundaryCondition* boundarycondition;
 };
     
 #endif /*DOMAIN_H*/

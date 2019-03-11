@@ -17,4 +17,5 @@ Domain::~Domain()
     delete integrator;
     delete equation;
     delete shapefunction;
+    delete boundarycondition;
 }

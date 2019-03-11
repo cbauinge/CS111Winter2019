@@ -47,13 +47,16 @@ void Solver::GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<d
         {
             if (matrixpos[i] != -1)
             {
-                for (int j = 0; j < energy.GetDimensionCols(); j++)
+                for (int j = 0; j < energy.GetDimensionCols(); j++) //go over all the neighboring nodes
                 {
                     if (matrixpos[j] != -1)
                         A[matrixpos[i]][matrixpos[j]] += energy[i][j];
+                    else //this means a neighboreing node is a boundary node and need to be added to the right handside 
+                        b[matrixpos[i]] -= energy[i][j]*domain->GetBoundaryCondition()->Eval(*local_nodes[j]);
                 }
-                b[matrixpos[i]] += 1.0/3.0*e->GetArea()*domain->GetEquation()->GetSourceFunction()->Eval(*local_nodes[i]);
-            }    
+                b[matrixpos[i]] += 1.0/3.0*e->GetArea()*domain->GetEquation()->GetSourceFunction()->Eval(*local_nodes[i]); //this needs to be generalized for different shape functions
+            }
+                
         }
     }
 

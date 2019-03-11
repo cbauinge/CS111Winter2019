@@ -2,20 +2,20 @@ LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/
 
 CXX = g++
-CXXFLAGS = -Wall -O2
+CXXFLAGS = -Wall -g
 
 
 
 main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
 PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
-ShapeFunction.o
+ShapeFunction.o BoundaryCondition.o DirichletBC.o
 	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o \
 	Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o \
-	SourceFunction.o Equation.o LapackSolver.o ShapeFunction.o $(LIBS)
+	SourceFunction.o Equation.o LapackSolver.o ShapeFunction.o BoundaryCondition.o DirichletBC.o $(LIBS)
 	
 Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
 PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
-ShapeFunction.o
+ShapeFunction.o BoundaryCondition.o DirichletBC.o
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS)
 	
 Solver.o: Solver.cpp Solver.h Domain.h Writer.h
@@ -77,6 +77,12 @@ ShapeFunction.o: ShapeFunction.h ShapeFunction.cpp
 
 TestSourceFunction.o: TestSourceFunction.h TestSourceFunction.cpp
 	$(CXX) $(CXXFLAGS) -c TestSourceFunction.cpp
+
+BoundaryCondition.o: BoundaryCondition.h BoundaryCondition.cpp
+	$(CXX) $(CXXFLAGS) -c BoundaryCondition.cpp
+
+DirichletBC.o: DirichletBC.h DirichletBC.cpp
+	$(CXX) $(CXXFLAGS) -c DirichletBC.cpp
 
 	
 clean:

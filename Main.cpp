@@ -12,6 +12,8 @@
 #include "SourceFunction.h"
 #include "TestSourceFunction.h"
 #include "LapackSolver.h"
+#include "BoundaryCondition.h"
+#include "DirichletBC.h"
 
 #include <iostream>
 #include <exception>
@@ -29,12 +31,14 @@ int main(int argc, char * argv [])
         Integrator* integrator = new ConstantIntegrator(testmesh);
         EnergyFunction* energyfct = new LaplaceEnergyFunction();
         SourceFunction* sourcefct = new TestSourceFunction();
-        ShapeFunction* shapefct = new PolynomialShapeFunction(2, 1);       
+        ShapeFunction* shapefct = new PolynomialShapeFunction(2, 1);  
+        BoundaryCondition* bc = new DirichletBC();
         
         Domain*  testdomain = new Domain(testmesh);
         testdomain->SetIntegrator(integrator);
         testdomain->SetEquation(new Equation(energyfct, sourcefct));
         testdomain->SetShapeFunction(shapefct);
+        testdomain->SetBoundaryCondition(bc);
                
         
         Writer writer;

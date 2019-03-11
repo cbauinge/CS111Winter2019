@@ -42,7 +42,7 @@ int LapackSolver::Solve(const Domain * const domain)
     std::cout << "\t...Finished Solving SoE" << std::endl;
     
     Writer writer;
-    writer.WriteSolution(domain->GetMesh(), bs, n, "result", "results", Writer::EFormat::CSV);
+    writer.WriteSolution<double *>(domain->GetMesh(), bs, n, "result", "results", Writer::EFormat::CSV);
     std::cout << "Finished Writing Solution to file" << std::endl;
     
     delete [] As;

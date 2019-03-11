@@ -12,6 +12,7 @@
 #include "SourceFunction.h"
 #include "TestSourceFunction.h"
 #include "LapackSolver.h"
+#include "EigenSolver.h"
 #include "BoundaryCondition.h"
 #include "DirichletBC.h"
 
@@ -44,7 +45,7 @@ int main(int argc, char * argv [])
         Writer writer;
         writer.WriteMesh(testdomain->GetMesh(), "Testdomain", "input", Writer::EFormat::CSV);
         
-        Solver* testsolver = new LapackSolver();
+        Solver* testsolver = new EigenSolver();
         
         testsolver->Solve(testdomain);
         

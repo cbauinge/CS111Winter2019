@@ -29,7 +29,6 @@ const Mesh* const  Meshgenerator::Generate(int n) const
         std::vector<int> inner_nodes;
         std::vector<std::vector<int> > node2edgeinnernode((n+1)*(n+1));
         
-        
         for (int j = 0; j <= n; j++)
         {
             for (int i = 0; i <= n; i++)

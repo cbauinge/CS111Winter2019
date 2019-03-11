@@ -1,28 +1,31 @@
 LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
-PATHS = -I /usr/include/
+PATHS = -I /usr/include/ -I /home/cbauinge/Documents/eigen/
 
 CXX = g++
-CXXFLAGS = -Wall -g
+CXXFLAGS = -Wall -O2 -fopenmp
 
 
 
 main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
 PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
-ShapeFunction.o BoundaryCondition.o DirichletBC.o
+ShapeFunction.o BoundaryCondition.o DirichletBC.o EigenSolver.o
 	$(CXX) $(CXXFLAGS) -o main Main.o Domain.o Solver.o Mesh.o Meshgenerator.o Writer.o Node.o Edge.o Simplex.o Polynomial.o \
 	Multiindex.o LaplaceEnergyFunction.o PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o \
-	SourceFunction.o Equation.o LapackSolver.o ShapeFunction.o BoundaryCondition.o DirichletBC.o $(LIBS)
+	SourceFunction.o Equation.o LapackSolver.o ShapeFunction.o BoundaryCondition.o DirichletBC.o EigenSolver.o $(LIBS) $(PATHS)
 	
 Main.o: Main.cpp Domain.o Solver.o Meshgenerator.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
 PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
-ShapeFunction.o BoundaryCondition.o DirichletBC.o
-	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS)
+ShapeFunction.o BoundaryCondition.o DirichletBC.o EigenSolver.o
+	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS) $(PATHS)
 	
 Solver.o: Solver.cpp Solver.h Domain.h Writer.h
 	$(CXX) $(CXXFLAGS) -c Solver.cpp $(PATHS) $(LIBS)
 
 LapackSolver.o: LapackSolver.cpp LapackSolver.h
 	$(CXX) $(CXXFLAGS) -c LapackSolver.cpp $(PATHS) $(LIBS)
+
+EigenSolver.o: EigenSolver.cpp EigenSolver.h
+	$(CXX) $(CXXFLAGS) -c EigenSolver.cpp $(PATHS)
 	
 Domain.o: Domain.cpp Domain.h Mesh.h
 	$(CXX) $(CXXFLAGS) -c Domain.cpp

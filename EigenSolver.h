@@ -1,0 +1,25 @@
+#ifndef EIGENSOLVER_H
+#define EIGENSOLVER_H
+
+
+#include "Solver.h"
+
+#include <Eigen/Sparse>
+#include <Eigen/Core>
+
+class EigenSolver : public Solver
+{
+public:
+    EigenSolver();
+    virtual ~EigenSolver();
+    virtual int Solve(const Domain * const domain);
+
+private:
+    Eigen::SparseMatrix<double> FormatMatrix(const Matrix<double>& A) const;
+    Eigen::VectorXd FormatRHS(const Vector<double>& b) const;
+};
+
+
+
+
+#endif /* EIGENSOLVER_H */

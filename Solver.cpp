@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <ostream>
+#include <exception>
 
 //#define DEBUG
 
@@ -31,8 +32,10 @@ void Solver::GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<d
     std::vector<const Element* > elems = domain->GetMesh()->GetpElements();
     std::vector<int> positions = GeneratePositionInMatrixLookup(domain->GetMesh()->GetInnerNodeIds(), domain->GetMesh()->GetNumberNodes());
 
-    for (auto e : elems)
+    #pragma omp parallel for
+    for (int eiter = 0; eiter < elems.size(); eiter++)
     {
+        const Element* e = elems[eiter];
         //get the evaluations of all the nergy functions on the current element 
         Matrix<double> energy = domain->GetIntegrator()->Integrate(e, domain->GetEquation()->GetEnergyFunction(), domain->GetShapeFunction());
         //now we add these to the corresponding matrix.
@@ -52,7 +55,13 @@ void Solver::GenerateSoE(const Domain* const domain, Matrix<double>& A, Vector<d
                     if (matrixpos[j] != -1)
                         A[matrixpos[i]][matrixpos[j]] += energy[i][j];
                     else //this means a neighboreing node is a boundary node and need to be added to the right handside 
-                        b[matrixpos[i]] -= energy[i][j]*domain->GetBoundaryCondition()->Eval(*local_nodes[j]);
+                    {
+                        if (domain->GetBoundaryCondition()->GetType() == BoundaryCondition::Type::Dirichlet)
+                            b[matrixpos[i]] -= energy[i][j]*domain->GetBoundaryCondition()->Eval(*local_nodes[j]);
+                        else
+                            throw std::invalid_argument("Other BCs than Dirichlet not yet supported. Solver::GenerateSoE");
+                            
+                    }
                 }
                 b[matrixpos[i]] += 1.0/3.0*e->GetArea()*domain->GetEquation()->GetSourceFunction()->Eval(*local_nodes[i]); //this needs to be generalized for different shape functions
             }

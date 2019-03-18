@@ -2,7 +2,7 @@ LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/ -I /home/cbauinge/Documents/eigen/
 
 CXX = g++
-CXXFLAGS = -Wall -O2 -fopenmp
+CXXFLAGS = -Wall -O3 -fopenmp
 
 
 

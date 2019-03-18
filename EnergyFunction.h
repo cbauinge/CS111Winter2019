@@ -6,9 +6,12 @@
 #include "Matrix.h"
 #include "Element.h"
 
-//Function that represents the differential operator in variational formulation. I.e it takes shape functions and points and evaluates it there.
-//Every specfific energy function is a derived class from this class
-//Later, the user could add new energy functions using runtime compilation and dynamical linking.
+/*! /brief Function that represents the differential operator in variational formulation. I.e it takes shape functions and points and evaluates it there.
+* 
+* Function that represents the differential operator in variational formulation. I.e it takes shape functions and points and evaluates it there.
+* Every specfific energy function is a derived class from this class
+* Later, the user could add new energy functions using runtime compilation and dynamical linking.
+*/
 class EnergyFunction
 {
   public:

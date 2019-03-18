@@ -5,7 +5,10 @@
 #include "BoundaryCondition.h"
 #include "Node.h"
 
-
+/*! \brief Class representing the dirichlet boundary condition.
+ *
+ *  Class representing the dirichlet boundary condition. Derived from BoundaryCondition. Automatically sets the type to Dirichlet.
+ */
 class DirichletBC : public BoundaryCondition
 {
 public:

@@ -4,6 +4,12 @@
 #include <ostream>
 #include "Node.h"
 
+
+
+/*! \brief Class representing an edge in an element.
+ *
+ *  Consists of 2 nodes.
+ */
 class Edge
 {
 public:

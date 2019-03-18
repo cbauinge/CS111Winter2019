@@ -6,6 +6,7 @@ CXXFLAGS = -Wall -O3 -fopenmp
 
 
 
+
 main: Main.o Domain.o Meshgenerator.o Solver.o Mesh.o Writer.o Node.o Edge.o Simplex.o Polynomial.o Multiindex.o LaplaceEnergyFunction.o \
 PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSourceFunction.o SourceFunction.o Equation.o LapackSolver.o \
 ShapeFunction.o BoundaryCondition.o DirichletBC.o EigenSolver.o
@@ -18,11 +19,11 @@ PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSource
 ShapeFunction.o BoundaryCondition.o DirichletBC.o EigenSolver.o
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS) $(PATHS)
 	
-Solver.o: Solver.cpp Solver.h Domain.h Writer.h
-	$(CXX) $(CXXFLAGS) -c Solver.cpp $(PATHS) $(LIBS)
+Solver.o: Solver.cpp Solver.h
+	$(CXX) $(CXXFLAGS) -c Solver.cpp $(LIBS) $(PATHS)
 
 LapackSolver.o: LapackSolver.cpp LapackSolver.h
-	$(CXX) $(CXXFLAGS) -c LapackSolver.cpp $(PATHS) $(LIBS)
+	$(CXX) $(CXXFLAGS) -c LapackSolver.cpp $(LIBS) $(PATHS)
 
 EigenSolver.o: EigenSolver.cpp EigenSolver.h
 	$(CXX) $(CXXFLAGS) -c EigenSolver.cpp $(PATHS)

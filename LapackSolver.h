@@ -3,6 +3,12 @@
 
 #include "Solver.h"
 
+
+
+/*! \brief Solver class using Lapacke linrary to solve the SoE.
+ *
+ *  Derived class from Solver.
+ */
 class LapackSolver : public Solver
 {
 public:

@@ -7,6 +7,11 @@
 #include <Eigen/Sparse>
 #include <Eigen/Core>
 
+
+/*! \brief Class representing the solver using Eigen library.
+ *
+ *  Derived from abstract solver class. Depends on Eigen.
+ */
 class EigenSolver : public Solver
 {
 public:

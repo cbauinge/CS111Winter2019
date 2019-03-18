@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <exception>
+#include <cstdlib>
 
 int main(int argc, char * argv [])
 {
@@ -29,7 +30,7 @@ int main(int argc, char * argv [])
         const Mesh* const testmesh = test_generator.Generate(n);
         
         
-        Integrator* integrator = new ConstantIntegrator(testmesh);
+        Integrator* integrator = new ConstantIntegrator();
         EnergyFunction* energyfct = new LaplaceEnergyFunction();
         SourceFunction* sourcefct = new TestSourceFunction();
         ShapeFunction* shapefct = new PolynomialShapeFunction(2, 1);  

@@ -4,7 +4,11 @@
 
 #include "Node.h"
 
-
+/*! \brief Class representing the boundary condition.
+ *
+ *  Class representing the boundary condition. Stores information about the type (Neumann 
+ *  oder Dirichlet) and lets the function be evaluated. How to use this i NOT part of this class.
+ */
 class BoundaryCondition
 {
 public:

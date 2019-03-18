@@ -4,6 +4,10 @@
 #include "EnergyFunction.h"
 #include "SourceFunction.h"
 
+/*! \brief Class representing the PDE to solve.
+ *
+ *  Consists of an energy function (which is the lhs in the variational formulation) and the source fct (f in the rhs of the variational formulation)
+ */
 class Equation
 {
 public:

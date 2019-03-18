@@ -7,7 +7,10 @@
 #include "Edge.h"
 #include "Element.h"
 
-
+/*! \brief Mesh. Geomtric representation of the domain.
+ *
+ *  Only holds geometrical data necessary to solve the PDE. No knowledge about the PDE, bc,etc. Is part of the domain.
+ */
 class Mesh
 {
 public:

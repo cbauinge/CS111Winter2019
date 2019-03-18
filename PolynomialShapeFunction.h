@@ -12,7 +12,10 @@
 
 
 
-
+/*! \brief Specific shape function implementation on basis of polynomials.
+* 
+* Currently only works for 2D linear polys.
+ */
 class PolynomialShapeFunction : public ShapeFunction
 {
     

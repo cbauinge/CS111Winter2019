@@ -4,7 +4,9 @@
 #include <vector>
 #include <ostream>
 
-
+/*! \brief Class representing a multiindex.
+ *
+ */
 class Multiindex
 {
 public:

@@ -7,6 +7,11 @@
 #include <iostream>
 #include <ostream>
 
+
+/*! \brief Class to write output.
+ *
+ *  
+ */
 class Writer
 {
 public:

@@ -6,7 +6,10 @@
 #include "Node.h"
 #include "Matrix.h"
 
-
+/*! \brief Specific energy function for the Laplace equation.
+ *
+ *  Derived class from EnergyFunction
+ */
 class LaplaceEnergyFunction : public EnergyFunction
 {
 public:

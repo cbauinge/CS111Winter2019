@@ -7,6 +7,11 @@
 #include "Node.h"
 #include "Edge.h"
 
+
+/*! \brief Simplicial element. Specific kind of element for the mesh.
+ *
+ *  Derived from Element.
+ */
 class Simplex : public Element
 {
 public:

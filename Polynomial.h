@@ -6,7 +6,9 @@
 #include <map>
 #include <ostream>
 
-
+/*! \brief Class representing a multidemsnional polynomial.
+ *
+ */
 class Polynomial
 {   
     

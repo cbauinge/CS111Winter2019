@@ -6,6 +6,10 @@
 #include "Vector.h"
 #include <ostream>
 
+/*! \brief MAtrix class.
+ *
+ *  Template class with basic linear algebra properties.
+ */
 template <typename T>
 class Matrix
 {

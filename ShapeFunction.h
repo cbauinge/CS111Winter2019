@@ -7,7 +7,10 @@
 #include "Element.h"
 #include "Matrix.h"
 
-//Abstract class that represents the shape funcitons on the unit element
+/*! \brief Abstract class representing the shape function.
+*
+ *  Attention: shape function is always on the unit element.
+ */
 class ShapeFunction
 {
 public:

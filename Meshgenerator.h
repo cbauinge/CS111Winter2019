@@ -3,7 +3,10 @@
 
 #include "Mesh.h"
 
-
+/*! \brief Class to generate simple Mesh for testing.
+ *
+ *  Generates a triangle mesh on the unit quad.
+ */
 class Meshgenerator
 {
 public:

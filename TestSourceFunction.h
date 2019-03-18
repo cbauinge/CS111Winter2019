@@ -3,6 +3,11 @@
 
 #include "SourceFunction.h"
 
+
+/*! \brief Specific implementation of a source function for tests.
+ *
+ *  Derived class from SourceFunction.
+ */
 class TestSourceFunction : public SourceFunction
 {
 public:

@@ -4,6 +4,10 @@
 #include <fstream>
 #include <ostream>
 
+
+/*! \brief Node in the mesh. Sometimes misused as a 2D vector.
+ *
+ */
 class Node
 {
 public:

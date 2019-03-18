@@ -5,9 +5,9 @@
 
 
 
-/*! \brief Solver class using Lapacke linrary to solve the SoE.
+/*! \brief Solver class using Lapacke library to solve the SoE.
  *
- *  Derived class from Solver.
+ *  Derived class from Solver. Calls Lapack to solve linear system of equations
  */
 class LapackSolver : public Solver
 {

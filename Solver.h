@@ -7,6 +7,11 @@
 #include "Vector.h"
 #include <stdlib.h>
 
+
+/*! \brief Abstract Solver class.
+ *
+ *  Gives access to simple output functionaility, generating the SoE and an abstract 'Solve' function.
+ */
 class Solver
 {
 public:

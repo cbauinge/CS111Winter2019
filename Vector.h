@@ -4,6 +4,11 @@
 #include <map>
 #include <ostream>
 
+
+/*! \brief Vector class. Used in the matrix class.
+ *
+ *  Uses map to allow for sparse. Doesn't work in multithreaded applications.
+ */
 template <typename T>
 class Vector
 {

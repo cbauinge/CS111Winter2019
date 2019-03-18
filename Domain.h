@@ -8,6 +8,11 @@
 #include "ShapeFunction.h"
 #include "BoundaryCondition.h"
 
+
+/*! \brief Class representing the computational domain.
+ *
+ *  Class representing the computational domain. Connects equation, intgerator, shapefunctions and boundary condition with the geomtry.
+ */
 class Domain
 {
 public:

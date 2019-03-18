@@ -2,7 +2,9 @@ LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
 PATHS = -I /usr/include/ -I /home/cbauinge/Documents/eigen/
 
 CXX = g++
-CXXFLAGS = -Wall -O2 -fopenmp
+CXXFLAGS = -Wall -g -fopenmp
+#CXX = pgc++
+#CXXFLAGS=-fast -Minfo=all,intensity,ccff -mp -std=c++11
 
 
 
@@ -18,11 +20,11 @@ PolynomialShapeFunction.o Integrator.o ConstantIntegrator.o Element.o TestSource
 ShapeFunction.o BoundaryCondition.o DirichletBC.o EigenSolver.o
 	$(CXX) $(CXXFLAGS) -c Main.cpp $(LIBS) $(PATHS)
 	
-Solver.o: Solver.cpp Solver.h Domain.h Writer.h
-	$(CXX) $(CXXFLAGS) -c Solver.cpp $(PATHS) $(LIBS)
+Solver.o: Solver.cpp Solver.h
+	$(CXX) $(CXXFLAGS) -c Solver.cpp $(LIBS) $(PATHS)
 
 LapackSolver.o: LapackSolver.cpp LapackSolver.h
-	$(CXX) $(CXXFLAGS) -c LapackSolver.cpp $(PATHS) $(LIBS)
+	$(CXX) $(CXXFLAGS) -c LapackSolver.cpp $(LIBS) $(PATHS)
 
 EigenSolver.o: EigenSolver.cpp EigenSolver.h
 	$(CXX) $(CXXFLAGS) -c EigenSolver.cpp $(PATHS)

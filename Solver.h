@@ -5,6 +5,7 @@
 #include "Domain.h"
 #include "Matrix.h"
 #include "Vector.h"
+#include <stdlib.h>
 
 class Solver
 {

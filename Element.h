@@ -6,7 +6,10 @@
 #include "Node.h"
 #include "Edge.h"
 
-
+/*! \brief Class representing an element in the mesh.
+ *
+ *  2D implementation. Consists of nodes and edges and a type indicating if it is a simplex, quad, etc.
+ */
 class Element
 {
 public:

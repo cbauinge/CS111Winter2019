@@ -8,11 +8,14 @@
 #include "Mesh.h"
 #include "Vector.h"
 
-
+/*! \brief Abstract class representing the integration scheme.
+ *
+ *  The specific integraiton schemes are derived classed from this class.
+ */
 class Integrator
 {
 public:
-    Integrator(const Mesh* const mesh);
+    Integrator();
 
     virtual ~Integrator();
     
@@ -20,7 +23,6 @@ public:
     virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const = 0;
     
 protected:
-    const Mesh* const mesh_;
 };
 
 #endif /* INTEGRATOR_H */

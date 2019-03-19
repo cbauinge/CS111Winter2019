@@ -16,6 +16,9 @@ class Mesh
 public:
     Mesh() = default;
     
+    /*! \brief Constructor. Takes nodes, edges, elements, and all the helper arrays.
+    *
+    */
     Mesh(std::vector<Node*> nodes, 
          std::vector<Edge*> edges, 
          std::vector<Element*> elements, 

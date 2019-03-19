@@ -18,17 +18,22 @@ public:
     
     virtual ~ShapeFunction() {}
     
-    //evaluate the shape function associated with point id at the value x
+    /*! \brief evaluate the shape function associated with point id at the value x
+    */
     virtual double Eval (int id, const Node& x) const = 0;
-    //Get the derivative of the shape function associated with point id at the value x
+    /*! \brief Get the derivative of the shape function associated with point id at the value x
+    */
     virtual Vector<double> DEval(int id, const Node& x) const = 0;
 
-    //get the derivative matrix, where the columns are the different shape functions and the rows are the dimensions
-    //i.e. a column is the DEval above
+    /*! \brief get the derivative matrix, where the columns are the different shape functions and the rows are the dimensions
+    * i.e. a column is the DEval above
+    * */
     virtual Matrix<double> DEval(const Node& x) const;
 
     virtual int GetNrShapeFunctions() const = 0;
 
+     /*! \brief Get the jacobian of the shape function at point 'x' with repsect to the element elem.
+     */
     Matrix<double> GetJacobian(const Node& x, const Element* const elem) const;
     
 protected:

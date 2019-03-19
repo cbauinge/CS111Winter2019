@@ -13,12 +13,16 @@
 class Edge
 {
 public:
+    /*! \brief Constructor for the edge. Takes two nodes which define the edge.
+    */
     Edge(Node* n1, Node* n2) : n1_(n1), n2_(n2) {}
     
+    /*! \brief Getter for the nodes.
+    * /param[in] id Id of the node we want to get. 0 is the first one. Everything else the second.
+    */
     const Node* const GetNode(int id) const {return id == 0 ? n1_ : n2_;} 
     Node* GetNode(int id) {return id == 0 ? n1_ : n2_;} 
     
-    //friend std::ostream& operator<<(std::ostream& os, const Edge& e);
     
 private:
     Node* n1_;

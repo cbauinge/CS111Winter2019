@@ -39,7 +39,7 @@ public:
 
     /*! \brief Function that evaluates the boundary condition at the given point..
     * 
-    * @param[in] The point where we want to get the boundary value.
+    * \param[in] x point where we want to get the boundary value.
     * \return The value of the bc on the given point.
     */
     virtual double Eval(const Node& x) const = 0;

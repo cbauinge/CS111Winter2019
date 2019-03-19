@@ -19,7 +19,8 @@ public:
 
     virtual ~Integrator();
     
-    //integrates the EnergyFunction evaluated the shape function
+    /*! \brief integrates the EnergyFunction evaluated the shape function
+    */
     virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const = 0;
     
 protected:

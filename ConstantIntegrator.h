@@ -31,9 +31,9 @@ public:
     
     /*! \brief Integrate a given energy function, which takes the shape function, over the given element.
     * 
-    * @param[in] The element over which we integrate.
-    * @param[in] The energy function over which we integrate.
-    * @param[in] The shape function (=ansatz function) we use. 
+    * \param[in] s element over which we integrate.
+    * \param[in] e energy function over which we integrate.
+    * \param[in] shape shape function (=ansatz function) we use. 
     * \return A matrix where each entry represents the integral of each base function against each base function.
     */
     virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const;

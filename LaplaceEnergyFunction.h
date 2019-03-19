@@ -17,6 +17,8 @@ public:
     
     virtual ~LaplaceEnergyFunction() {}
     
+    /* @see EnergyFunction
+    */
     virtual Matrix<double> Eval(const Node& x, const ShapeFunction* s, const Element* element) const;
     
     

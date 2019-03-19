@@ -19,11 +19,23 @@
 class ConstantIntegrator : public Integrator
 {
 public:
+    /*! \brief Constructor. Doing nothing.
+    * 
+    */
     ConstantIntegrator() {}
     
+    /*! \brief Destructor. Doing nothing.
+    * 
+    */
     virtual ~ConstantIntegrator() {}
     
-    
+    /*! \brief Integrate a given energy function, which takes the shape function, over the given element.
+    * 
+    * @param[in] The element over which we integrate.
+    * @param[in] The energy function over which we integrate.
+    * @param[in] The shape function (=ansatz function) we use. 
+    * \return A matrix where each entry represents the integral of each base function against each base function.
+    */
     virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const;
     
 };

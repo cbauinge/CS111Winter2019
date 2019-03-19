@@ -16,6 +16,9 @@
 class Domain
 {
 public:
+    /*! \brief Constructor. Takes the mesh.
+    * 
+    */
     Domain(Mesh const * const  mesh);
     ~Domain();
     

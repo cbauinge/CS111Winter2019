@@ -1,5 +1,5 @@
 LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
-PATHS = -I /usr/include/ -I /usr/include/eigen3/Eigen
+PATHS = -I /usr/include/ -isystem /usr/include/eigen3/Eigen
 
 CXX = g++-7
 CXXFLAGS = -Wall -O3 -fopenmp

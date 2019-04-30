@@ -1,6 +1,6 @@
 os: linux
 language: c++
-compiler: gcc
+compiler: g++
 before_install: 
     - sudo apt-get update
     - sudo apt-get install -y liblapacke-dev liblapack-dev libeigen3-dev

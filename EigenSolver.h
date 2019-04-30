@@ -4,8 +4,8 @@
 
 #include "Solver.h"
 
-#include <Eigen/Sparse>
-#include <Eigen/Core>
+#include <Sparse>
+#include <Core>
 
 
 /*! \brief Class representing the solver using Eigen library.

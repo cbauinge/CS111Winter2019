@@ -1,5 +1,5 @@
 LIBS = -L/usr/x86_64-linux-gnu/ -llapacke
-PATHS = -I /usr/include/ -I /home/cbauinge/Documents/eigen/
+PATHS = -I /usr/include/ -I /usr/include/eigen3/Eigen
 
 CXX = g++
 CXXFLAGS = -Wall -O3 -fopenmp
@@ -39,7 +39,7 @@ Writer.o: Writer.cpp Writer.h Node.h
 	
 Mesh.o: Mesh.cpp Mesh.h Node.o Simplex.o Edge.o Simplex.h Node.h Edge.h
 	$(CXX) $(CXXFLAGS) -c Mesh.cpp
-	
+		
 Node.o: Node.h Node.cpp
 	$(CXX) $(CXXFLAGS) -c Node.cpp
 	

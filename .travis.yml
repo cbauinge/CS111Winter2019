@@ -1,14 +1,7 @@
 os: linux
 language: c++
 compiler: gcc
-before_script:
-    - hg clone https://bitbucket.org/eigen/eigen
-    - cd eigen
-    - mkdir build
-    - cd build
-    - cmake ..
-    - make
 before_install: 
     - sudo apt-get update
-    - sudo apt-get install -y liblapacke-dev liblapack-dev
+    - sudo apt-get install -y liblapacke-dev liblapack-dev libeigen3-dev
 script: make

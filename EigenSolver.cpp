@@ -3,8 +3,6 @@
 #include <iostream>
 
 #include "Writer.h"
-#include <Eigen/Sparse>
-#include <Eigen/Core>
 
 
 EigenSolver::EigenSolver()

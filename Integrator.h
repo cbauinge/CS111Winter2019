@@ -24,6 +24,6 @@ public:
     virtual Matrix<double> Integrate(const Element * const s, const EnergyFunction* const e, const ShapeFunction* const shape) const = 0;
     
 protected:
-}
+};
 
 #endif /* INTEGRATOR_H */

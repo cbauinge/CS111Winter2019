@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB Sources "*.cpp")
 file(GLOB Headers ".h")
 
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(Eigen3 REQUIRED)
 find_package(LAPACKE)
 find_package(LAPACK)
 

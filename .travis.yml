@@ -13,4 +13,4 @@ before_install:
     - sudo apt-get update
     - sudo apt-get install -y liblapacke-dev liblapack-dev libeigen3-dev
     - eval "${MATRIX_EVAL}"
-script: ls && cd CS111Winter2019 && cd eigen && mkdir build && cmake .. && make && cd ../.. && mkdir build && cd build && cmake .. && make
+script: ls && && cd eigen && mkdir build && cd build && cmake .. && make && cd ../.. && mkdir build && cd build && cmake .. && make

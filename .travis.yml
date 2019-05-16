@@ -11,6 +11,5 @@ language: c++
 compiler: g++
 before_install: 
     - sudo apt-get update
-    - sudo apt-get install -y liblapacke-dev libeigen3-dev liblapack-dev doxygen
     - eval "${MATRIX_EVAL}"
 script: ls && cd eigen && mkdir build && cd build && cmake .. && make && cd ../.. && mkdir build && cd build && cmake .. && make

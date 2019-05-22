@@ -12,5 +12,9 @@ compiler: g++
 before_install: 
     - sudo apt-get update
     - sudo apt-get install -y liblapack-dev liblapacke-dev libgtest-dev
+    - git clone https://github.com/google/googletest.git && cd googletest
+    - mkdir build && cd build
+    - cmake .. && sudo make install
+    - cd ../..
     - eval "${MATRIX_EVAL}"
 script: ls && cd eigen && mkdir build && cd build && cmake .. && make && cd ../.. && mkdir build && cd build && cmake .. && make &&./TestExe

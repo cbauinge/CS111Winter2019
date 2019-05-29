@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(CS111 CXX)
 
+include(CTest)
+
 #Set Standard
 set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,7 +23,6 @@ include_directories(${CMAKE_SOURCE_DIR}/Equation/include)
 include_directories(${CMAKE_SOURCE_DIR}/Io/include)
 include_directories(${CMAKE_SOURCE_DIR}/Solver/include)
 include_directories(${CMAKE_SOURCE_DIR}/Helper/include)
-
 
 enable_testing()
 

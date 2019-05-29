@@ -1,62 +1,35 @@
 cmake_minimum_required(VERSION 3.0)
-project(FEMSolverCS111 CXX)
+project(CS111 CXX)
 
 #Set Standard
-set(CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB Sources "*.cpp")
-list(REMOVE_ITEM Sources ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp ${CMAKE_CURRENT_SOURCE_DIR}/testframe.cpp)
-message(STATUS "${Sources}")
-file(GLOB Headers ".h")
+set(GTEST_PATH ${CMAKE_SOURCE_DIR}/../googletest)
+add_subdirectory(${GTEST_PATH} ${CMAKE_BINARY_DIR}/gtest)
 
-option(BUILD_DOCUMENTATION "Use Doxygen to create html documentation" ON)
+set(EIGEN_PATH ${CMAKE_SOURCE_DIR}/../eigen)
+add_subdirectory(${EIGEN_PATH} ${CMAKE_BINARY_DIR}/eigen)
 
-#install packages
-#install Lapack
-find_package(LAPACK)
-if (NOT LAPACK_FOUND)
-    if (UNIX)
-        #try to install it
-        execute_process(COMMAND sudo apt-get install -y liblapack-dev liblapacke-dev)
-        find_package(LAPACK REQUIRED)
-    endif()
+find_package(LAPACK REQUIRED)
 
-    if (NOT LAPACK_FOUND)
-        message(FATAL_ERROR "Couldn't find or install LAPACK")
-    endif()
-endif()
+include_directories(SYSTEM ${GTEST_PATH}/googletest/include)
+include_directories(${EIGEN_PATH})
+include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/Domain/include)
+include_directories(${CMAKE_SOURCE_DIR}/Equation/include)
+include_directories(${CMAKE_SOURCE_DIR}/Io/include)
+include_directories(${CMAKE_SOURCE_DIR}/Solver/include)
+include_directories(${CMAKE_SOURCE_DIR}/Helper/include)
 
-#check if Lapacke is installed. Not really necessary
-find_package(LAPACKE)
 
-#install eigen. Delivered with source
-find_package(Eigen3 REQUIRED)
+enable_testing()
 
-#check if gtest is installed. Required for unit testing
-find_package(GTest REQUIRED)
-find_package (Threads REQUIRED) #pthreads for gtest
-#add_custom_target(unit-test COMMAND ./${CMAKE_CURRENT_SOURCE_DIR}/TestExe)
+add_subdirectory(Domain)
+add_subdirectory(Equation)
+add_subdirectory(Io)
+add_subdirectory(Solver)
+add_subdirectory(Helper)
 
-#install doxygen if necessary
-if (BUILD_DOCUMENTATION)
-    find_package(Doxygen)
-    if (NOT DOXYGEN_FOUND)
-        if (UNIX)
-            execute_process(COMMAND sudo apt-get install -y doxygen graphviz)
-            find_package(Doxygen)
-            if (DOXYGEN_FOUND)
-                add_custom_target(doc ALL ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile $WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc)
-            endif()
-        endif()
-    else()
-        add_custom_target(doc ALL ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile $WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc)
-    endif()
-endif()
-
-include_directories(${GTEST_INCLUDE_DIRS} ${PROJECT_SOURCE_DIR} ${EIGEN3_INCLUDE_DIR} ${LAPACKE_INCLUDE_DIR} ${LAPACK_INCLUDE_DIR})
-add_executable(SolverExe Main.cpp ${Sources})
-target_link_libraries (SolverExe Eigen3::Eigen lapack lapacke)
-
-add_executable(TestExe testframe.cpp ${Sources})
-target_link_libraries(TestExe ${GTEST_BOTH_LIBRARIES} Eigen3::Eigen lapack lapacke ${CMAKE_THREAD_LIBS_INIT})
+add_executable(CS111 Main.cpp)
+target_link_libraries(CS111 Domain Equation Io Solver Helper)

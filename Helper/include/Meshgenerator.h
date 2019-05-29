@@ -9,6 +9,8 @@
  */
 class Meshgenerator
 {
+    friend class MeshgeneratorTest;
+    
 public:
     Meshgenerator();
     

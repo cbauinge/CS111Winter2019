@@ -31,42 +31,26 @@ TEST_F(MeshgeneratorTest, NumberOfNodes)
 
 TEST_F(MeshgeneratorTest, NumberOfInnerNodes)
 {
-    {
-        const Mesh* mesh = test_.Generate(1);
-        EXPECT_EQ(0, mesh->GetpInnerNodes().size());
-        delete mesh;
-    }
 
+    for (int i = 0; i < 10; i++)
     {
-        const Mesh* mesh = test_.Generate(2);
-        EXPECT_EQ(1, mesh->GetpInnerNodes().size());
-        delete mesh;
-    }
-
-    {
-        const Mesh* mesh = test_.Generate(3);
-        EXPECT_EQ(4, mesh->GetpInnerNodes().size());
+        std::srand(std::time(NULL));
+        int n = std::rand() % 10 + 1; //random number between 1 and 10
+        const Mesh* mesh = test_.Generate(n);
+        EXPECT_EQ((n-1)*(n-1), mesh->GetpInnerNodes().size());
         delete mesh;
     }
 }
 
 TEST_F(MeshgeneratorTest, NumberOfEdges)
 {
-    {
-        const Mesh* mesh = test_.Generate(1);
-        EXPECT_EQ(5, mesh->GetpEdges().size());
-        delete mesh;
-    }
 
+    for (int i = 0; i < 10; i++)
     {
-        const Mesh* mesh = test_.Generate(2);
-        EXPECT_EQ(16, mesh->GetpEdges().size());
-        delete mesh;
-    }
-
-    {
-        const Mesh* mesh = test_.Generate(3);
-        EXPECT_EQ(33, mesh->GetpEdges().size());
+        std::srand(std::time(NULL));
+        int n = std::rand() % 10 + 1; //random number between 1 and 10
+        const Mesh* mesh = test_.Generate(n);
+        EXPECT_EQ(2*n*(n+1) + n*n, mesh->GetpEdges().size());
         delete mesh;
     }
 }
@@ -77,8 +61,42 @@ TEST_F(MeshgeneratorTest, NumberOfEdges)
 
 class MultiindexTest : public ::testing::Test
 {
+protected:
+    void SetUp() override {
+        std::vector<int> tmp{1, 2, 3};
+        test_ = Multiindex(tmp);
+    }
 
+    Multiindex test_;
 };
+
+
+TEST_F(MultiindexTest, Abs)
+{
+    EXPECT_EQ(6, test_.abs());
+}
+
+
+TEST_F(MultiindexTest, AccessOperatorRead)
+{
+    EXPECT_EQ(1, test_[0]);
+    EXPECT_EQ(2, test_[1]);
+    EXPECT_EQ(3, test_[2]);
+}
+
+TEST_F(MultiindexTest, AccessOperatorWrite)
+{
+    std::srand(std::time(NULL));
+    int n = std::rand() % 10;
+    test_[0] = n;
+    EXPECT_EQ(n, test_[0]);
+
+    std::srand(std::time(NULL));
+    n = std::rand() % 10;
+    test_[1] = n;
+    EXPECT_EQ(n, test_[1]);
+
+}
 
 
 /////////////////////////////////UNIT TESTS FOR POLYNOMIAL CLASS////////////
@@ -86,8 +104,44 @@ class MultiindexTest : public ::testing::Test
 
 class PolynomialTest : public ::testing::Test
 {
+protected:
+    void SetUp() override {
+        test_ = Polynomial(2, 1);
+    }
+
+    Polynomial test_;
 
 };
+
+
+TEST_F(PolynomialTest, Dimension)
+{
+    EXPECT_EQ(2, test_.GetDimension());
+}
+
+
+TEST_F(PolynomialTest, Access1)
+{
+    std::vector<int> v{1, 0};
+    test_.GetCoefficients()[Multiindex(v)] = 1.5; 
+    EXPECT_EQ(1.5, test_.GetCoefficients()[Multiindex(v)]);
+}
+
+TEST_F(PolynomialTest, Access2)
+{
+    std::vector<int> v{0, 1};
+    test_.GetCoefficients()[Multiindex(v)] = 1.5; 
+    EXPECT_EQ(1.5, test_.GetCoefficients()[Multiindex(v)]);
+}
+
+TEST_F(PolynomialTest, Derivative)
+{
+    std::vector<int> v{1, 0};
+    test_.GetCoefficients()[Multiindex(v)] = 1.5; 
+    Polynomial d = test_.Derivative(0);
+    v = std::vector<int>{0, 0};
+    EXPECT_EQ(1.5, d.GetCoefficients()[Multiindex(v)]);
+}
 
 
 /////////////////////////////////UNIT TESTS FOR VECTOR CLASS////////////
@@ -95,8 +149,24 @@ class PolynomialTest : public ::testing::Test
 
 class VectorTest : public ::testing::Test
 {
+protected:
+    void SetUp() override {
+        test_ = Vector<int>(3);
+        test_[0] = 1;
+        test_[1] = 2;
+        test_[2] = 3;
+    }
 
+    Vector<int> test_;
 };
+
+
+TEST_F(VectorTest, Access)
+{
+    EXPECT_EQ(1, test_[0]);
+    EXPECT_EQ(2, test_[1]);
+    EXPECT_EQ(3, test_[2]);
+}
 
 
 

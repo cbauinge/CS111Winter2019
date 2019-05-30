@@ -12,6 +12,8 @@
 template <typename T>
 class Vector
 {
+    friend class VectorTest;
+
 public:
     Vector(int m = 0) : dim(m) {}
     virtual ~Vector() {}

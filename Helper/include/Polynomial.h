@@ -11,6 +11,7 @@
  */
 class Polynomial
 {   
+    friend class PolynomialTest;
     
 public:
     Polynomial() : Polynomial(0, 0) {}

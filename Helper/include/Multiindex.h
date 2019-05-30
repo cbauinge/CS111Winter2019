@@ -9,7 +9,11 @@
  */
 class Multiindex
 {
+    friend class MultiindexTest;
+
 public:
+    Multiindex() {}
+
     Multiindex(std::vector<int>& vals) : values(vals) {}
     
     /*! \brief Get the modulus of the multiindex.

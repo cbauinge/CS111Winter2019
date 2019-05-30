@@ -15,6 +15,9 @@ add_subdirectory(${EIGEN_PATH} ${CMAKE_BINARY_DIR}/eigen)
 
 find_package(LAPACK REQUIRED)
 
+
+find_package(Doxygen)
+
 include_directories(SYSTEM ${GTEST_PATH}/googletest/include)
 include_directories(${EIGEN_PATH})
 include_directories(${CMAKE_SOURCE_DIR})
@@ -31,6 +34,18 @@ add_subdirectory(Equation)
 add_subdirectory(Io)
 add_subdirectory(Solver)
 add_subdirectory(Helper)
+
+
+if (DOXYGEN_FOUND)
+    set(DOXYGEN_GENERATE_HTML YES)
+    set(DOXYGEN_GENERATE_MAN NO)
+
+    doxygen_add_docs(
+        doxygen
+        ${CMAKE_CURRENT_DIR}
+        COMMENT "Generate html doc"
+    )
+endif ()
 
 add_executable(CS111 Main.cpp)
 target_link_libraries(CS111 Domain Equation Io Solver Helper)
